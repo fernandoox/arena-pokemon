@@ -1,0 +1,5 @@
+export type * from './bando'
+export type * from './batalla'
+export type * from './narracion'
+export type * from './pokeapi'
+export type * from './pokemon'

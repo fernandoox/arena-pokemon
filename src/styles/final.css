@@ -1,0 +1,96 @@
+/* ============================================================
+   PANTALLA FINAL
+   ============================================================ */
+.pantalla-final {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  overflow: hidden;
+  text-align: center;
+}
+
+.trofeo {
+  margin: 0;
+  font-size: 8rem;
+  animation: rebotar 1s ease-in-out infinite;
+}
+.titulo-victoria {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--color-bando);
+  text-shadow: 3px 3px 0 #000;
+  animation: aparecer 0.8s ease-out;
+}
+
+.marcador-final {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+  font-size: 2rem;
+  font-weight: 800;
+}
+.marcador-final strong {
+  font-size: 4.5rem;
+  color: var(--amarillo);
+}
+.marcador-final .lado-A,
+.marcador-final .lado-B {
+  color: var(--color-bando);
+}
+
+.resumen-rondas {
+  margin: 0 0 1rem;
+  padding: 1rem 2rem;
+  font-size: 1.3rem;
+  text-align: left;
+  background: var(--panel);
+  border-radius: 16px;
+}
+.resumen-rondas li {
+  margin: 0.3rem 0;
+}
+.resumen-rondas strong {
+  color: var(--color-bando);
+}
+
+/* Confeti que cae */
+.confeti {
+  position: fixed; /* cubre toda la ventana aunque la página sea más alta */
+  inset: 0;
+  z-index: 0; /* detrás del texto, para que se pueda leer */
+  overflow: hidden;
+  pointer-events: none;
+}
+/* Todo lo demás de la pantalla final va encima del confeti */
+.pantalla-final > :not(.confeti) {
+  position: relative;
+  z-index: 1;
+}
+.confeti span {
+  position: absolute;
+  top: -40px; /* empieza fuera de la pantalla, arriba */
+  width: 14px;
+  height: 22px;
+  border-radius: 3px;
+  animation-name: caer;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  /* duración y retraso vienen de PantallaFinal.tsx */
+}
+
+/* Pantalla final */
+.marcador-final strong {
+  display: inline-block;
+  animation: estampa 0.6s cubic-bezier(0.3, 1.6, 0.6, 1) 0.3s both;
+}
+.resumen-rondas li {
+  animation: entrar-izquierda 0.5s ease-out both;
+}
+.pantalla-final .boton-grande {
+  animation: aparecer 0.5s ease-out 1.6s both;
+}

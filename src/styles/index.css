@@ -1,0 +1,9 @@
+/* Punto de entrada de los estilos: cada archivo cubre una pantalla o pieza. */
+@import './base.css';
+@import './tarjeta.css';
+@import './registro.css';
+@import './batalla.css';
+@import './final.css';
+@import './controles.css';
+@import './animaciones.css';
+@import './responsive.css';

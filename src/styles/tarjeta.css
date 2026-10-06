@@ -1,0 +1,95 @@
+/* ============================================================
+   TARJETA DE POKÉMON
+   ============================================================ */
+.tarjeta-pokemon {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem;
+  background: linear-gradient(135deg, var(--color-tipo) -30%, var(--panel) 70%);
+  border-radius: 14px;
+}
+.tarjeta-imagen {
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgb(0 0 0 / 0.5));
+}
+.tarjeta-info {
+  flex: 1;
+  min-width: 0;
+}
+.tarjeta-nombre {
+  font-size: 1.3rem;
+}
+.tarjeta-numero {
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+}
+.tarjeta-tipos {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0.3rem 0;
+}
+.insignia-tipo {
+  padding: 0.1em 0.7em;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  border-radius: 999px;
+}
+.tarjeta-stats {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;
+}
+.tarjeta-stats li {
+  display: grid;
+  grid-template-columns: 5.5em 1fr 2.5em;
+  align-items: center;
+  gap: 0.5em;
+}
+.stat-barra {
+  height: 8px;
+  background: rgb(255 255 255 / 0.15);
+  border-radius: 999px;
+}
+.stat-barra span {
+  display: block;
+  height: 100%;
+  background: var(--amarillo);
+  border-radius: 999px;
+}
+.stat-valor {
+  text-align: right;
+  font-weight: 700;
+}
+.tarjeta-total {
+  margin: 0.3rem 0 0;
+}
+
+/* Versión grande para la batalla */
+.tarjeta-pokemon.grande {
+  flex-direction: column;
+  text-align: center;
+  padding: 1rem;
+  background: radial-gradient(circle, var(--color-tipo) 0%, var(--panel) 70%);
+}
+.tarjeta-pokemon.grande .tarjeta-imagen {
+  width: min(250px, 26vw);
+  height: min(250px, 26vw);
+}
+.tarjeta-pokemon.grande .tarjeta-nombre {
+  font-size: 2.2rem;
+}
+.tarjeta-pokemon.grande .tarjeta-tipos {
+  justify-content: center;
+}
+.tarjeta-pokemon.grande .insignia-tipo {
+  font-size: 1.1rem;
+}
+.tarjeta-pokemon.grande .tarjeta-total {
+  font-size: 1.3rem;
+}

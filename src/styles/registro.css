@@ -1,0 +1,207 @@
+/* ============================================================
+   PANTALLA DE REGISTRO
+   ============================================================ */
+.pantalla-registro {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.titulo-app {
+  margin-bottom: 1rem;
+  font-size: 3rem;
+  font-weight: 900;
+  text-align: center;
+  color: var(--amarillo);
+  text-shadow: 4px 4px 0 #2a5bd7;
+  letter-spacing: 2px;
+}
+
+.bandos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.panel-bando {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--panel);
+  border: 5px solid var(--color-bando);
+  border-radius: 20px;
+}
+.panel-bando h2 {
+  font-size: 2rem;
+  color: var(--color-bando);
+}
+
+/* Panel oculto cuando el bando ya está listo */
+.panel-bando.listo {
+  align-items: center;
+  justify-content: center;
+  min-height: 420px;
+  text-align: center;
+}
+.nombre-listo {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+}
+.sello-listo {
+  margin: 0;
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--verde);
+  animation: aparecer 0.4s ease-out;
+}
+
+.subtitulo {
+  font-size: 1.1rem;
+}
+
+.lista-buscadores {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* ---------- Buscador de Pokémon ---------- */
+.buscador {
+  position: relative;
+  padding: 0.7rem;
+  background: var(--panel-claro);
+  border-radius: 14px;
+}
+.buscador-encabezado {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.3rem;
+}
+.buscador-encabezado .boton-chico {
+  margin-left: auto;
+}
+.posicion {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2.2rem;
+  height: 2.2rem;
+  font-weight: 900;
+  color: #111;
+  background: var(--color-bando);
+  border-radius: 50%;
+}
+
+.sugerencias {
+  position: absolute;
+  z-index: 10;
+  left: 0.7rem;
+  right: 0.7rem;
+  margin: 0;
+  padding: 0.3rem;
+  list-style: none;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.6);
+}
+.sugerencias button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.2rem 0.5rem;
+  font-weight: 700;
+  text-align: left;
+  color: #111;
+  background: none;
+  border: none;
+  border-radius: 8px;
+}
+.sugerencias button:hover,
+.sugerencias button:focus {
+  background: #ffe680;
+  outline: none;
+}
+.sugerencias img {
+  width: 48px;
+  height: 48px;
+  image-rendering: pixelated;
+}
+
+/* ---------- Total de estadísticas ---------- */
+.total-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 1.2rem;
+}
+.barra-total {
+  height: 18px;
+  overflow: hidden;
+  background: var(--panel-claro);
+  border-radius: 999px;
+}
+.barra-total span {
+  display: block;
+  height: 100%;
+  background: var(--verde);
+  transition: width 0.3s;
+}
+.total-stats.excedido {
+  color: var(--rojo);
+}
+.total-stats.excedido .barra-total span {
+  background: var(--rojo);
+}
+
+/* ---------- Alerta de hackeo ---------- */
+.alerta-hackeo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1rem;
+  font-size: 1.1rem;
+  color: #fff;
+  background: #c40000;
+  border: 4px solid #fff;
+  border-radius: 14px;
+  animation: sacudir 0.5s ease-in-out 2;
+}
+.alerta-hackeo strong {
+  font-size: 1.6rem;
+}
+
+.lista-errores {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.95rem;
+  color: #ffb3b3;
+}
+
+.acciones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1.5rem 0;
+}
+.boton-iniciar {
+  font-size: 1.8rem;
+}
+
+/* Registro: la tarjeta "salta" al elegir un Pokémon */
+.buscador .tarjeta-pokemon {
+  animation: aparecer 0.35s ease-out;
+}
+/* El sello "Listo ✔" cae como estampa */
+.sello-listo {
+  animation: estampa 0.5s cubic-bezier(0.3, 1.6, 0.6, 1);
+}
+/* El botón de iniciar late cuando ya se puede usar */
+.boton-iniciar:not(:disabled) {
+  animation: latir 0.7s ease-in-out infinite alternate;
+}

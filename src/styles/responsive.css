@@ -1,0 +1,20 @@
+/* ---------- Pantallas angostas ---------- */
+@media (max-width: 900px) {
+  :root {
+    font-size: 16px;
+  }
+  .bandos {
+    grid-template-columns: 1fr;
+  }
+  .arena {
+    grid-template-columns: 1fr;
+  }
+  .encabezado-batalla {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .tarjeta-pokemon.grande .tarjeta-imagen {
+    width: 200px;
+    height: 200px;
+  }
+}

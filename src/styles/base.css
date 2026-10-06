@@ -1,0 +1,128 @@
+/* Variables, tipografía, botones y campos. Pensado para proyector: letras grandes y alto contraste. */
+/* ---------- Variables de color ---------- */
+:root {
+  --fondo: #0b1020;
+  --panel: #161d36;
+  --panel-claro: #222b4d;
+  --texto: #ffffff;
+  --texto-suave: #c7cee8;
+  --amarillo: #ffcb05; /* amarillo Pokémon */
+  --rojo: #ff4d4d;
+  --azul: #4da3ff;
+  --verde: #3ddc84;
+  --color-bando: var(--amarillo);
+
+  font-family: system-ui, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-size: 20px; /* base grande para el proyector */
+  line-height: 1.4;
+  color: var(--texto);
+  background: var(--fondo);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 10%, #2a1a4a 0%, transparent 40%),
+    radial-gradient(circle at 85% 90%, #0f3050 0%, transparent 40%), var(--fondo);
+}
+
+/* Cada bando tiene su color */
+.lado-A {
+  --color-bando: var(--rojo);
+}
+.lado-B {
+  --color-bando: var(--azul);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+/* ---------- Botones ---------- */
+button {
+  font: inherit;
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.boton-grande {
+  padding: 0.7em 1.6em;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #111;
+  background: var(--amarillo);
+  border: none;
+  border-radius: 999px;
+  box-shadow: 0 6px 0 #b38f00;
+  transition: transform 0.1s;
+}
+.boton-grande:not(:disabled):hover {
+  transform: translateY(-2px);
+}
+.boton-grande:not(:disabled):active {
+  transform: translateY(3px);
+  box-shadow: 0 3px 0 #b38f00;
+}
+
+.boton-chico {
+  padding: 0.3em 0.8em;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--texto);
+  background: var(--panel-claro);
+  border: 2px solid var(--texto-suave);
+  border-radius: 8px;
+}
+
+/* ---------- Campos de texto ---------- */
+input,
+textarea {
+  width: 100%;
+  padding: 0.5em 0.7em;
+  font: inherit;
+  color: #111;
+  background: #fff;
+  border: 3px solid transparent;
+  border-radius: 10px;
+}
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--amarillo);
+}
+textarea {
+  resize: vertical;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  font-weight: 700;
+}
+.contador {
+  align-self: flex-end;
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+}
+
+.aviso-suave {
+  margin: 0.3em 0;
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+}
+.texto-error {
+  margin: 0.3em 0;
+  color: var(--rojo);
+  font-weight: 700;
+}
