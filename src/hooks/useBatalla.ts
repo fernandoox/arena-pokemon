@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { narrarRonda } from '../api/claude'
 import { obtenerRelaciones } from '../api/pokeapi'
 import { sonarGolpeYVictoria, sonarRedoble } from '../audio/efectos'
@@ -18,12 +18,15 @@ function conValor<T>(lista: T[], indice: number, valor: T): T[] {
 /**
  * Controla las 3 rondas: calcula cada ganador y luego pide la narración.
  * Cada ronda se juega automáticamente al llegar a ella.
+ * El ganador queda en secreto hasta que la narración termina de escribirse y de leerse.
  */
 export function useBatalla(bandoA: Bando, bandoB: Bando) {
   const [ronda, setRonda] = useState(0)
   const [resultados, setResultados] = useState<ResultadoRonda[]>([])
   const [narraciones, setNarraciones] = useState<Narracion[]>([])
   const [error, setError] = useState('')
+  const [textoTerminado, setTextoTerminado] = useState(false)
+  const [vozTerminada, setVozTerminada] = useState(false)
   // En desarrollo React ejecuta los efectos dos veces; esto evita jugar una ronda doble.
   const iniciadas = useRef(new Set<number>())
 
@@ -41,7 +44,6 @@ export function useBatalla(bandoA: Bando, bandoB: Bando) {
       ])
       const resultado = calcularRonda(indice + 1, a, b, relaciones)
       setResultados((previos) => conValor(previos, indice, resultado))
-      sonarGolpeYVictoria()
 
       const narracion = await narrarRonda({
         ronda: resultado,
@@ -51,7 +53,7 @@ export function useBatalla(bandoA: Bando, bandoB: Bando) {
         estrategiaB: bandoB.estrategia,
       })
       setNarraciones((previas) => conValor(previas, indice, narracion))
-      leerEnVozAlta(narracion.texto)
+      void leerEnVozAlta(narracion.texto).then(() => setVozTerminada(true))
     } catch {
       iniciadas.current.delete(indice)
       setError('No se pudieron descargar los tipos desde PokéAPI.')
@@ -66,17 +68,31 @@ export function useBatalla(bandoA: Bando, bandoB: Bando) {
 
   useEffect(() => detenerVoz, [])
 
+  const revelada = Boolean(resultados[ronda]) && textoTerminado && vozTerminada
+
+  useEffect(() => {
+    if (revelada) sonarGolpeYVictoria()
+  }, [revelada])
+
+  const terminarTexto = useCallback(() => setTextoTerminado(true), [])
+
   function siguienteRonda() {
     detenerVoz()
+    setTextoTerminado(false)
+    setVozTerminada(false)
     setRonda((r) => r + 1)
   }
 
   return {
     ronda,
     resultados,
-    resultado: resultados[ronda] as ResultadoRonda | undefined,
+    /** `true` en cuanto el cálculo terminó, aunque el ganador siga en secreto. */
+    calculada: Boolean(resultados[ronda]),
+    /** Solo existe cuando ya se reveló el ganador. */
+    resultado: revelada ? resultados[ronda] : undefined,
     narracion: narraciones[ronda] as Narracion | undefined,
-    marcador: contarVictorias(resultados.filter(Boolean)),
+    terminarTexto,
+    marcador: contarVictorias(resultados.filter((r, i) => r && (i < ronda || revelada))),
     esUltima: ronda === TOTAL_RONDAS - 1,
     error,
     reintentar: () => jugarRonda(ronda),

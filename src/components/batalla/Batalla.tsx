@@ -1,5 +1,7 @@
 import { useBatalla } from '../../hooks/useBatalla'
+import { useTurnosDeAtaque } from '../../hooks/useTurnosDeAtaque'
 import type { Bando, ResultadoRonda } from '../../types'
+import { Ataques } from './Ataques'
 import { Calculo } from './Calculo'
 import { EncabezadoBatalla } from './EncabezadoBatalla'
 import { Luchador } from './Luchador'
@@ -11,9 +13,15 @@ interface Props {
   onTerminar: (resultados: ResultadoRonda[]) => void
 }
 
-/** Pantalla de batalla: una ronda a la vez con cálculo, narración y botón para avanzar. */
+/**
+ * Pantalla de batalla: una ronda a la vez.
+ * Primero la narración (los Pokémon siguen forcejeando) y al final se revelan el ganador y el cálculo.
+ */
 export function Batalla({ bandoA, bandoB, onTerminar }: Props) {
   const batalla = useBatalla(bandoA, bandoB)
+  // Se atacan por turnos mientras se narra; al revelarse el ganador, paran.
+  const atacando = batalla.calculada && !batalla.resultado
+  const ataque = useTurnosDeAtaque(atacando)
 
   function avanzar() {
     if (batalla.esUltima) onTerminar(batalla.resultados)
@@ -36,13 +44,24 @@ export function Batalla({ bandoA, bandoB, onTerminar }: Props) {
           bando={bandoA}
           pokemon={bandoA.pokemon[batalla.ronda]!}
           resultado={batalla.resultado}
+          atacando={atacando && ataque.lado === 'A'}
         />
         <div className="vs">VS</div>
+        {batalla.calculada && (
+          <Ataques
+            pokemonA={bandoA.pokemon[batalla.ronda]!}
+            pokemonB={bandoB.pokemon[batalla.ronda]!}
+            disparo={ataque.disparo}
+            lado={ataque.lado}
+            ganador={batalla.resultado?.ganador}
+          />
+        )}
         <Luchador
           lado="B"
           bando={bandoB}
           pokemon={bandoB.pokemon[batalla.ronda]!}
           resultado={batalla.resultado}
+          atacando={atacando && ataque.lado === 'B'}
         />
       </section>
 
@@ -59,18 +78,21 @@ export function Batalla({ bandoA, bandoB, onTerminar }: Props) {
         <p className="combate-en-curso">⚔️ ¡Combate en curso! ⚔️</p>
       )}
 
-      {batalla.resultado && (
-        <>
-          <Calculo resultado={batalla.resultado} />
-          <PanelNarracion key={batalla.ronda} narracion={batalla.narracion} />
-        </>
+      {batalla.calculada && (
+        <PanelNarracion
+          key={batalla.ronda}
+          narracion={batalla.narracion}
+          alTerminar={batalla.terminarTexto}
+        />
       )}
+
+      {batalla.resultado && <Calculo resultado={batalla.resultado} />}
 
       <div className="acciones">
         <button
           type="button"
           className="boton-grande"
-          disabled={!batalla.narracion}
+          disabled={!batalla.resultado}
           onClick={avanzar}
         >
           {batalla.esUltima ? 'Ver resultado final 🏁' : 'Siguiente ronda ➜'}

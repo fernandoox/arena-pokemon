@@ -9,6 +9,10 @@
   .arena {
     grid-template-columns: 1fr;
   }
+  /* Con los luchadores apilados, los ataques horizontales no tienen sentido */
+  .ataques {
+    display: none;
+  }
   .encabezado-batalla {
     flex-wrap: wrap;
     justify-content: center;

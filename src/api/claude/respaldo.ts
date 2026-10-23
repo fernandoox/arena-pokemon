@@ -9,7 +9,7 @@ export function narracionRespaldo(ronda: ResultadoRonda): Narracion {
   const p = formatearNombre(perdedor.nombre)
 
   return {
-    texto: `¡La arena tiembla cuando ${g} y ${p} se miran frente a frente! Ambos lanzan sus mejores ataques y el público contiene la respiración. Al final, ${g} resiste el último golpe y se lleva la ronda ${ronda.numero}. ¡Qué combate!`,
+    texto: `¡${g} y ${p} chocan con todo y el público contiene la respiración! Al final, ${g} resiste el último golpe y se lleva la ronda ${ronda.numero}.`,
     respaldo: true,
   }
 }

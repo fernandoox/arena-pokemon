@@ -30,6 +30,7 @@
 }
 
 .arena {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
@@ -179,10 +180,85 @@
   animation: embestida-izquierda 0.5s ease-out;
 }
 .luchador.perdedor .tarjeta-imagen {
-  animation: recibir-golpe 0.6s ease-out 0.15s;
+  /* Espera a que llegue el ataque final */
+  animation: recibir-golpe 0.6s ease-out 0.45s;
 }
 .luchador.ganador {
   animation: brillo 1.2s ease-in-out infinite alternate;
+}
+
+/* Ataques: emojis del tipo de cada Pokémon que cruzan la arena */
+.ataques {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+/* El contenedor viaja de lado a lado; el emoji de adentro hace la trayectoria */
+.proyectil,
+.impacto {
+  position: absolute;
+  top: 45%;
+  font-size: 4rem;
+  line-height: 1;
+}
+.proyectil {
+  --vuelo: 0.9s;
+  /* Brilla con el color del bando que lo lanza */
+  filter: drop-shadow(0 0 10px var(--color-bando)) drop-shadow(0 0 4px var(--color-bando));
+  animation: var(--vuelo) linear both;
+}
+.proyectil.desde-A {
+  animation-name: volar-derecha;
+}
+.proyectil.desde-B {
+  animation-name: volar-izquierda;
+}
+.proyectil.final {
+  --vuelo: 0.5s;
+  font-size: 7rem;
+}
+.proyectil-emoji {
+  display: inline-block;
+  animation: var(--vuelo) both;
+  animation-delay: inherit;
+}
+.trayectoria-recto {
+  animation-name: girar;
+  animation-timing-function: linear;
+}
+.desde-B .trayectoria-recto {
+  animation-direction: reverse;
+}
+.trayectoria-arco {
+  animation-name: arco;
+}
+.trayectoria-zigzag {
+  animation-name: zigzag;
+  animation-timing-function: linear;
+}
+.trayectoria-rafaga {
+  font-size: 0.75em;
+}
+
+/* Quien ataca da un impulso hacia el rival */
+.arena.peleando .luchador.atacando.lado-A .tarjeta-imagen {
+  animation: impulso-derecha 0.35s ease-out;
+}
+.arena.peleando .luchador.atacando.lado-B .tarjeta-imagen {
+  animation: impulso-izquierda 0.35s ease-out;
+}
+
+.impacto {
+  font-size: 8rem;
+  opacity: 0;
+  animation: estallar 0.7s ease-out 0.4s forwards;
+}
+.impacto.contra-A {
+  left: 22%;
+}
+.impacto.contra-B {
+  left: 78%;
 }
 
 /* Narración tipo máquina de escribir */

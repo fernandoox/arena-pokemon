@@ -4,17 +4,19 @@ import { MaquinaDeEscribir } from '../comunes/MaquinaDeEscribir'
 interface Props {
   /** Mientras no exista, se muestra que el narrador está escribiendo. */
   narracion?: Narracion
+  /** Se llama cuando el texto terminó de escribirse. */
+  alTerminar: () => void
 }
 
 /** Narración de la IA (o la de respaldo) con efecto de máquina de escribir. */
-export function PanelNarracion({ narracion }: Props) {
+export function PanelNarracion({ narracion, alTerminar }: Props) {
   return (
     <section className="narracion">
       <h2>🎙️ Narración</h2>
       {!narracion && (
         <p className="aviso-suave parpadeo">El narrador está preparando la crónica…</p>
       )}
-      {narracion && <MaquinaDeEscribir texto={narracion.texto} />}
+      {narracion && <MaquinaDeEscribir texto={narracion.texto} alTerminar={alTerminar} />}
       {narracion?.respaldo && (
         <p className="aviso-suave">(Narración de respaldo: la IA no respondió)</p>
       )}

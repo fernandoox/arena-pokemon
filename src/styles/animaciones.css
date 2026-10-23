@@ -121,6 +121,102 @@
     transform: translateX(6px);
   }
 }
+@keyframes volar-derecha {
+  from {
+    left: 22%;
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 1;
+  }
+  15% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  85% {
+    opacity: 1;
+  }
+  to {
+    left: 78%;
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0;
+  }
+}
+@keyframes volar-izquierda {
+  from {
+    left: 78%;
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 1;
+  }
+  15% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  85% {
+    opacity: 1;
+  }
+  to {
+    left: 22%;
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0;
+  }
+}
+@keyframes girar {
+  to {
+    transform: rotate(720deg);
+  }
+}
+@keyframes arco {
+  from {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
+  }
+  50% {
+    transform: translateY(-140px);
+    animation-timing-function: ease-in;
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes zigzag {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-50px);
+  }
+  40% {
+    transform: translateY(40px);
+  }
+  60% {
+    transform: translateY(-40px);
+  }
+  80% {
+    transform: translateY(30px);
+  }
+}
+@keyframes impulso-derecha {
+  40% {
+    transform: translateX(40px) scale(1.12);
+  }
+}
+@keyframes impulso-izquierda {
+  40% {
+    transform: translateX(-40px) scale(1.12);
+  }
+}
+@keyframes estallar {
+  from {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 1;
+  }
+  40% {
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1.6);
+    opacity: 0;
+  }
+}
 @keyframes brillo {
   from {
     box-shadow: 0 0 20px var(--amarillo);

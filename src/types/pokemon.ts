@@ -36,10 +36,12 @@ export interface RelacionesTipo {
   nulo: string[]
 }
 
-/** Nombre en español y color para mostrar un tipo. */
+/** Nombre en español, color y emoji de ataque para mostrar un tipo. */
 export interface InfoTipo {
   nombre: string
   color: string
   /** `true` si el color es claro y necesita letra oscura. */
   textoOscuro: boolean
+  /** Lo que lanza un Pokémon de este tipo en la arena. */
+  emoji: string
 }
